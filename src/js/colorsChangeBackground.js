@@ -44,21 +44,17 @@ function setRandomColorWrapper(color) {
 ** запускает таймер планировщик, который каждую секунду
 ** генерирует рандомный цвет и добавляет класс к body 
 */
-
 function onStartButtonClick() {
-    if (isActive) {
-        return;
-    }
-
+    if (isActive) { return; }
     isActive = true;
-
     intervalId = setInterval(() => {
-        const randomColor = getColorRandom(0, colors.length - 1);
-        bodyBackgroundColor(randomColor);
-        setRandomColorWrapper(randomColor);
-         console.log('randomColor :>> ', randomColor);
-        }, 1000);
-};
+    const randomColor = getColorRandom(0, colors.length - 1);
+    if (randomColor) {
+    bodyBackgroundColor(randomColor);
+    setRandomColorWrapper(randomColor);
+    console.log('randomColor :>> ', randomColor);
+}
+ }, 1000);};
 
 //Функция при клике на Стоп удаляет таймер и прекращает его работу
 
