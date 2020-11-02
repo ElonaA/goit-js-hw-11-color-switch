@@ -14,15 +14,6 @@ let random = null,
 refs.startButton.addEventListener('click', onStartButtonClick);
 refs.stopButton.addEventListener('click', onStopButtonClick);
 
-//Вариант функции с циклом do..while - не работает на гитхаб
-// function getColorRandom(min, max) {
-//     do {
-//         random = colors[Math.floor(Math.random() * (max - min)) + min];
-//     } while (random === getColorRandom.last);
-//     getColorRandom.last = random;
-//     return random;
-// };
-
 // Функция перебирает массив, выбирает рандомный цвет, который не равен предыдущему
 
 function getColorRandom(min, max) {
@@ -34,8 +25,8 @@ function getColorRandom(min, max) {
     }
     else {
         getColorRandom.last = random;
+         return random;
     }
- return random;
 }
 
 //Функция добавляет инлайн стиль background-сolor для боди с рандомным цветом
@@ -65,6 +56,7 @@ function onStartButtonClick() {
         const randomColor = getColorRandom(0, colors.length - 1);
         bodyBackgroundColor(randomColor);
         setRandomColorWrapper(randomColor);
+         console.log('randomColor :>> ', randomColor);
         }, 1000);
 };
 
