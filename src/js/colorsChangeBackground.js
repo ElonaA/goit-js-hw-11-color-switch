@@ -7,7 +7,7 @@ const refs = {
     colorWrapper: document.querySelector('.js-wrapper'),
 };
 
-let random = null,
+let randomColor = null,
     intervalId = null,
     isActive = false;
 
@@ -16,18 +16,18 @@ refs.stopButton.addEventListener('click', onStopButtonClick);
 
 // Функция перебирает массив, выбирает рандомный цвет, который не равен предыдущему
 
-function getColorRandom(min, max) {
+function getColor(previosly){
+  let min = 0;
+  let max = colors.length;
+  let next = colors[Math.floor(Math.random() * (max - min)) + min];
 
-    random = colors[Math.floor(Math.random() * (max - min)) + min];
-    
-    if (random === getColorRandom.last) {
-        getColorRandom(min, max);
-    }
-    else {
-        getColorRandom.last = random;
-         return random;
-    }
-}
+    if (next === previosly) {
+    next = getColor(previosly); //recursive
+  }
+  
+  return next;
+}; 
+
 
 //Функция добавляет инлайн стиль background-сolor для боди с рандомным цветом
 
@@ -48,12 +48,10 @@ function onStartButtonClick() {
     if (isActive) { return; }
     isActive = true;
     intervalId = setInterval(() => {
-    const randomColor = getColorRandom(0, colors.length - 1);
-    if (randomColor) {
-    bodyBackgroundColor(randomColor);
-    setRandomColorWrapper(randomColor);
-    console.log('randomColor :>> ', randomColor);
-}
+        randomColor = getColor(randomColor);
+        bodyBackgroundColor(randomColor);
+        setRandomColorWrapper(randomColor);
+        console.log('randomColor :>> ', randomColor);
  }, 1000);};
 
 //Функция при клике на Стоп удаляет таймер и прекращает его работу
@@ -62,3 +60,6 @@ function onStartButtonClick() {
         clearInterval(intervalId);
         isActive = false;
 };
+
+
+
